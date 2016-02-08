@@ -2,14 +2,15 @@
 
 this game is based on [Phaser ES6 Demo](https://github.com/cstuncsik/phaser-es6-demo) by cstuncsik. 
 
-This is small shoot'em up demo game to show how you can build a [phaser](http://phaser.io/) game with the next generation of javascript (ES6/2015).
+## Installation
 
+    npm install
+    
+    I had some errors in install but it still worked. Should probably check what, i think it failed on some python. 
 
 ## Technology
 
 The project is based on [Node.js](https://nodejs.org/en/)
-If you are familiar just have a look at **package.json** and gulp tasks in **tasks** folder.
-If you are familiar and lazy just run:
 
   ```sh
   npm i && npm run dev
@@ -48,8 +49,6 @@ In production mode (dev mode is nearly just copying files into builds/dev)
 
 
 ## License
-
-Copyright © 2016 Csaba Tuncsik <csaba.tuncsik@gmail.com>
 
 This work is free. You can redistribute it and/or modify it under the
 terms of the Do What The Fuck You Want To Public License, Version 2,
