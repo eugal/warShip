@@ -1,0 +1,30 @@
+{"frames": [
+
+{
+	"filename": "smallfighter0001.png",
+	"frame": {"x":2,"y":2,"w":135,"h":49},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":135,"h":49},
+	"sourceSize": {"w":135,"h":49}
+},
+{
+	"filename": "smallfighter0006.png",
+	"frame": {"x":280,"y":2,"w":135,"h":55},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":135,"h":55},
+	"sourceSize": {"w":135,"h":55}
+},
+{
+	"filename": "smallfighter0011.png",
+	"frame": {"x":141,"y":2,"w":135,"h":49},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":135,"h":49},
+	"sourceSize": {"w":135,"h":49}
+}]
+
+}
+
+

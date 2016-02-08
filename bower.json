@@ -1,0 +1,21 @@
+{
+  "name": "shipWar",
+  "description": "",
+  "authors": [
+    "Braden League"
+  ],
+  "license": "WTFPL",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "phaser": "~2.4.4",
+    "threejs": "*",
+    "jquery": "*"
+  }
+}
