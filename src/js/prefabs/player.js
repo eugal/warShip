@@ -1,4 +1,5 @@
 import Bullet from './bullet';
+import Bullet2 from './bullet'; //nothing yet, different bullet styles please
 
 export default class Player extends Phaser.Sprite {
 
@@ -21,6 +22,7 @@ export default class Player extends Phaser.Sprite {
         // this.body.maxAngularVelocity = 200;
 
         this.body.collideWorldBounds = true;
+        this.body.allowGravity = true;
 
         this.lastPos = {x, y};
 
@@ -31,18 +33,9 @@ export default class Player extends Phaser.Sprite {
 
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
-        this.bulletSpeed = -500;
+        this.bulletSpeed = -400;
 
         // this.shotSound = this.game.add.sound('playerShot');
-
-        // this.game.input.onDown.add(() => {
-        //     if (this.alive) {
-        //         // this.mousePos.x = this.game.input.activePointer.position.x;
-        //         // this.mousePos.y = this.game.input.activePointer.position.y;
-        //         // this.diff.x = x - this.position.x;
-        //         // this.diff.y = y - this.position.y;
-        //     }
-        // });
 
         // this.game.input.onUp.add(() => {
         //     if (this.alive) {
@@ -53,55 +46,64 @@ export default class Player extends Phaser.Sprite {
 
     update() {
 
+        let isUp = this.game.input.keyboard.isDown(Phaser.Keyboard.UP) || this.game.input.keyboard.isDown(Phaser.KeyCode.W);
+        let isDown = this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN) || this.game.input.keyboard.isDown(Phaser.KeyCode.S);
+        let isLeft = this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || this.game.input.keyboard.isDown(Phaser.KeyCode.A);
+        let isRight = this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || this.game.input.keyboard.isDown(Phaser.KeyCode.D);
 
-        if(this.game.input.keyboard.isDown(Phaser.Keyboard.UP) || this.game.input.keyboard.isDown(Phaser.KeyCode.W)){
+
+        if(isUp){
             this.body.acceleration.y = -500;
-        } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN) || this.game.input.keyboard.isDown(Phaser.KeyCode.S)){
+        } else if (isDown){
             // this.game.physics.arcade.accelerationFromRotation(this.rotation, -200, this.body.acceleration);
             this.body.acceleration.y = 500;
         } else {
-            if(this.body.velocity.y > 50){
-                this.body.acceleration.y--;
-            } else if (this.body.velocity.y < -50) {
-                this.body.acceleration.y++;
+            if(this.body.velocity.y > 20){
+                this.body.acceleration.y -= 30;
+            } else if (this.body.velocity.y < -20) {
+                this.body.acceleration.y += 30;
             } else {    
                 this.body.velocity.y = 0;
+                this.body.acceleration.y = 0;
             }
         }
 
-        if(this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || this.game.input.keyboard.isDown(Phaser.KeyCode.D)){
-            // this.body.angularVelocity = 100;
+        if(isRight){
             this.body.acceleration.x = 500;
-        } else if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || this.game.input.keyboard.isDown(Phaser.KeyCode.A)){
+        } else if (isLeft){
              this.body.acceleration.x = -500;
         } else {
-            if(this.body.velocity.x > 50){
-                this.body.acceleration.x--;
-            } else if (this.body.velocity.x < -50) {
-                this.body.acceleration.x++;
+            if(this.body.velocity.x > 20){
+                this.body.acceleration.x -= 30;
+            } else if (this.body.velocity.x < -20) {
+                this.body.acceleration.x += 30;
+
             } else {    
                 this.body.velocity.x = 0;
+                this.body.acceleration.x = 0;
             }
         }
 
-
+        // console.log( this.body.acceleration.x);
         // console.log(this.body.velocity);
 
     } //end update 
 
     shoot() {
 
-        console.log(this.game.physics.arcade);
+        // console.log(this.game.physics.arcade);
 
         // this.shotSound.play("",0,0.5);
 
         let bullet = this.bullets.getFirstExists(false);
 
+        let _yOffset = this.y - 3; 
+
         if (!bullet) {
             bullet = new Bullet({
                 game: this.game,
                 x: this.x,
-                y: this.y - 3,
+                y: _yOffset = this.y - 3,
                 health: 3,
                 asset: 'bullet',
                 tint: 0x04c112
@@ -109,10 +111,10 @@ export default class Player extends Phaser.Sprite {
             this.bullets.add(bullet);
         }
         else {
-            bullet.reset(this.x, this.top, 3);
+            bullet.reset(this.x,  _yOffset = this.y - 3, 3);
         }
-        // bullet.rotation = this.game.physics.arcade.moveToPointer(bullet, this.bulletSpeed, game.input.activePointer, 500);
-        bullet.body.velocity.x = this.bulletSpeed * -1;
+        bullet.body.rotation = this.game.physics.arcade.moveToPointer(bullet, this.bulletSpeed, this.game.input.activePointer, 500);
+        // bullet.body.velocity.x = this.bulletSpeed * -1;
     } // END shoot
 
     damage(amount) {

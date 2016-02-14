@@ -10,7 +10,7 @@ gulp.task('html:prod', () => {
         .pipe(gulp.dest(config.paths.builds.tmp.root))
         .pipe(usemin({
             js: [uglify()],
-            lib: [uglify()],
+            lib: [], //ERROR the libs are failing on being uglify, should inspect later
             html: [htmlmin({
                 removeComments: true,
                 collapseWhitespace: true

@@ -23,3 +23,4 @@ gulp.task('js:dev', () => {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.paths.builds.dev.js))
 });
+

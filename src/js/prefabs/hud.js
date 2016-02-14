@@ -30,6 +30,13 @@ export default class Hud extends Phaser.Group {
     updateScore(amount) {
         this.score += amount;
         this.scoreText.text = this.scoreLabel + (this.score * 10);
+
+        let highScore = localStorage.getItem("high-score");
+
+        if(highScore < this.score){
+            localStorage.setItem("high-score", this.score);
+        }
+
     }
 
 };

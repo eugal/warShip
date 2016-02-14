@@ -26,20 +26,6 @@ export default class Enemy extends Phaser.Sprite {
 
     update() {
 
-        // if (this.position.x < 0.04 * this.game.world.width) {
-        //     this.position.x = 0.04 * this.game.world.width + 2;
-        //     this.body.velocity.x *= -1;
-        // }
-        // else if (this.position.x > 0.96 * this.game.world.width) {
-        //     this.position.x = 0.96 * this.game.world.width - 2;
-        //     this.body.velocity.x *= -1;
-        // }
-
-        // if (this.position.y - this.height / 2 > this.game.world.height) {
-        //     this.kill();
-        // }
-
-
     // AI!!!! 
 
         if (this.position.y < 0.04 * this.game.world.height) {
@@ -59,8 +45,6 @@ export default class Enemy extends Phaser.Sprite {
         //     this.kill();
         // }
         
-
-
     }
 
     shoot() {

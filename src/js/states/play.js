@@ -48,8 +48,9 @@ export default class Play extends Phaser.State {
         this.enemyInterval = 2;
         this.enemyShootTime = 0;
         this.enemyShootInterval = 3;
+
         this.playerShootTime = 0;
-        this.playerShootInterval = .05;
+        this.playerShootInterval = .1;
         this.playerShooting = false;
 
         //enemy interval spawner this should be smarter 
@@ -90,11 +91,11 @@ export default class Play extends Phaser.State {
                 x: this.game.width,
                 y: this.game.rnd.integerInRange(6, 76) * 10,
                 speed: {
-                    x: this.game.rnd.integerInRange(5, 10) * -10, //times -10 so it moves to the left
+                    x: this.game.rnd.integerInRange(5, 10) * -10, 
                     y: this.game.rnd.integerInRange(5, 10) * 10
                 },
                 health: 9,
-                bulletSpeed: this.game.rnd.integerInRange(10, 20) * 10,
+                bulletSpeed: this.game.rnd.integerInRange(15, 25) * 10,
                 asset: 'alien'
             });
         }
@@ -176,6 +177,8 @@ export default class Play extends Phaser.State {
             this.game.world.bringToTop(this.overlay);
         }
     }
+
+    //collision
 
     hitEnemy(bullet, enemy) {
         // this.bulletHitSound.play("",0,0.5);

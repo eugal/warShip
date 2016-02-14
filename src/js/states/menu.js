@@ -20,7 +20,7 @@ export default class Menu extends Phaser.State {
         this.title.anchor.setTo(0.5);
 
         this.intro = new Phaser.Text(this.game, this.game.world.centerX, this.game.world.centerY-100, 'WASD + click to shoot', {
-            font: '24px Tahoma',
+            font: '14px Tahoma',
             fill: 'white',
             align: 'center'
         });
@@ -43,6 +43,33 @@ export default class Menu extends Phaser.State {
             }
         });
 
+
+            this.loadout1 = new TextButton({
+            game: this.game,
+            x: this.game.world.centerX,
+            y: this.game.world.centerY,
+            asset: 'button',
+            overFrame: 2,
+            outFrame: 1,
+            downFrame: 0,
+            upFrame: 1,
+            label: 'loadout one',
+            style: {
+                font: '16px Verdana',
+                fill: 'white',
+                align: 'center'
+            }
+        });
+
+        this.score = localStorage.getItem("high-score");
+        this.scoreLabel = 'High Score: ';
+        this.scoreText = new Phaser.Text(this.game, 20, 14, this.scoreLabel + (this.score * 10), {
+            font: '13px Verdana',
+            fill: 'white',
+            align: 'center'
+
+        });
+
         // this.btnOverSound = this.add.sound('menuOver');
         // this.btnOutSound = this.add.sound('menuOut');
         // this.btnDownSound = this.add.sound('menuDown');
@@ -58,12 +85,29 @@ export default class Menu extends Phaser.State {
             $(_ThreeUI).remove(); 
         });
 
+        this.loadout1.onInputUp.add(()=>{
+
+            localStorage.setItem("loadout", 1); 
+
+        });
+
+
+
         this.menuPanel = this.add.group();
         this.menuPanel.add(this.title);
         this.menuPanel.add(this.start);
+        this.menuPanel.add(this.scoreText);
         this.menuPanel.add(this.intro);
 
         // this.music.loopFull();
+
+
+
+    // $('#btnOne').click(this.state.start('Play'));
+
+
+
+
     }
 
 }

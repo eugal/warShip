@@ -1,0 +1,135 @@
+* 									{ margin: 0; padding: 0; }
+body								{ font: 14px Helvetica, Sans-Serif; } 
+#page-wrap							{ width: 800px; margin: 25px auto; } 
+a									{ text-decoration: none; }
+ul									{ list-style: none; }
+p                                   { margin: 15px 0; }
+
+/* 
+	LEVEL ONE
+*/
+ul.dropdown                         { position: relative; }
+ul.dropdown li                      { font-weight: bold; float: left; zoom: 1; background: #ccc; }
+ul.dropdown a:hover		            { color: #000; }
+ul.dropdown a:active                { color: #ffa500; }
+ul.dropdown li a                    { display: block; padding: 4px 8px; border-right: 1px solid #333;
+	 								  color: #222; }
+ul.dropdown li:last-child a         { border-right: none; } /* Doesn't work in IE */
+ul.dropdown li.hover,
+ul.dropdown li:hover                { background: #F3D673; color: black; position: relative; }
+ul.dropdown li.hover a              { color: black; }
+
+
+/* 
+	LEVEL TWO
+*/
+ul.dropdown ul 						{ width: 220px; visibility: hidden; position: absolute; top: 100%; left: 0; }
+ul.dropdown ul li 					{ font-weight: normal; background: #f6f6f6; color: #000; 
+									  border-bottom: 1px solid #ccc; float: none; }
+									  
+                                    /* IE 6 & 7 Needs Inline Block */
+ul.dropdown ul li a					{ border-right: none; width: 100%; display: inline-block; } 
+
+/* 
+	LEVEL THREE
+*/
+ul.dropdown ul ul 					{ left: 100%; top: 0; }
+ul.dropdown li:hover > ul 			{ visibility: visible; }
+
+
+
+.standardDropdown{
+  position: absolute;
+  font-family: "united_sans_regmedium";
+  right: 10px;
+  top: 203px;
+  width: 175px;
+  max-height: 30px;
+  overflow: hidden;
+  height: 30px;
+  border: 1px solid rgba(0,246,255,0.3);
+  background-color: rgba(0,0,0,0.75);
+  z-index: 9999;
+  cursor: pointer;
+}
+
+.standardDropdown:hover{
+  overflow: visible;
+  max-height: auto;
+}
+
+.standardDropdown:hover ul{
+  opacity: 1;
+  display: block;
+  margin: 8px 0 0 0;
+  -webkit-transition: all .1s ease-in-out;
+}
+
+.standardDropdown li:hover{
+  -webkit-transition: all .2s ease-in-out;
+  color: white;
+  padding: 5px 0 6px 14px;
+  width: 170px;
+  max-width: 170px;
+}
+
+.standardDropdown::before{
+  content: "";
+  position: fixed;
+  margin: 13px 0 0 150px;
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(0,246,255,1);
+}
+
+.standardDropdown h1{
+  width: 100%;
+  text-align: left;
+  padding: 7px 0 0 10px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: rgba(0,246,255,1);
+}
+
+.standardDropdown ul{
+  opacity: 0;
+  position: absolute;
+  margin: -10px 0 0 0;
+  display: block;
+  list-style-type: none;
+  width: 100%;
+  height: auto;
+  z-index: 9998;
+}
+
+.standardDropdown li{
+  width: 165px;
+  max-width: 165px;
+  height: auto;
+  border: 1px solid rgba(0,246,255,0.3);
+  margin: 1px 0 0 -1px;
+  padding: 5px 0 6px 10px;
+  font-family: "united_sans_regmedium";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: left;
+  color: rgba(0,246,255,0.5);
+  background-color: rgb(0,0,0);
+  -webkit-transition: all .2s ease-out;
+}
+
+.standardDropdown li:hover{
+  margin: 1px 0 0 -1px;
+  border-left: 3px solid rgba(0,246,255,1);
+}
+
+.standardDropdown li.selected{
+  background-color: rgba(0,246,255,0.5);
+  color: rgb(0,0,0);
+}
