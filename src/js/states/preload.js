@@ -9,10 +9,11 @@ export default class Preload extends Phaser.State {
 
         this.load.setPreloadSprite(this.loaderBar);
 
-        // this.load.atlasJSONArray('smallfighter', 'img/spritesheet/smallfighter.png', 'data/spritesheet/smallfighter.json');
+        this.load.atlasJSONArray('smallfighter', 'img/spritesheet/smallfighter.png', 'data/spritesheet/smallfighter.json');
         this.load.atlasJSONArray('newfigther', 'img/spritesheet/newfigther.png', 'data/spritesheet/newfigther.json');
 
         this.load.atlasJSONArray('alien', 'img/spritesheet/alien.png', 'data/spritesheet/alien.json');
+        this.load.atlasJSONArray('alien2', 'img/spritesheet/alien2.png', 'data/spritesheet/alien.json');
         this.load.atlasJSONArray('button', 'img/spritesheet/button.png', 'data/spritesheet/button.json');
         this.load.image('farback', 'img/night_sky.png');
         this.load.image('bullet', 'img/bullet.png');

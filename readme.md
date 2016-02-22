@@ -33,7 +33,7 @@ Development and production builds are going to **builds** folder.
 
 ## Features
 
-In production mode (dev mode is nearly just copying files into builds/dev)
+In production mode (dev mode is nearly just copying files into builds/dev).json
 
   - optimizing images
   - minifying html, js and json

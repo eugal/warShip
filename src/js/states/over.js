@@ -48,7 +48,6 @@ export default class Over extends Phaser.State {
         // this.btnOverSound = this.add.sound('menuOver');
         // this.btnOutSound = this.add.sound('menuOut');
         // this.btnDownSound = this.add.sound('menuDown');
-
         // this.start.setOverSound(this.btnOverSound);
         // this.start.setOutSound(this.btnOutSound);
         // this.start.setDownSound(this.btnDownSound);
@@ -68,5 +67,10 @@ export default class Over extends Phaser.State {
         this.gameOverPanel.add(this.gameOverTitle);
         this.gameOverPanel.add(this.start);
         this.gameOverPanel.add(this.menu);
+
+        // reset hud
+       $('.healthbar').width(100 + '%')
+       $(".scoreText h1").text("Score: " + 0)
+       $("#hud").hide();
     }
 }

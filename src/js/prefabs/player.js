@@ -19,7 +19,6 @@ export default class Player extends Phaser.Sprite {
         this.enableBody = true;
 
         this.body.maxVelocity.setTo(250, 250);
-        // this.body.maxAngularVelocity = 200;
 
         this.body.collideWorldBounds = true;
         this.body.allowGravity = true;
@@ -35,6 +34,8 @@ export default class Player extends Phaser.Sprite {
         this.bullets.enableBody = true;
         this.bulletSpeed = -400;
 
+        this.loadout = localStorage.getItem("loadout");
+
         // this.shotSound = this.game.add.sound('playerShot');
 
         // this.game.input.onUp.add(() => {
@@ -42,6 +43,7 @@ export default class Player extends Phaser.Sprite {
         //         this.frame = 1;
         //     }
         // });
+
     }
 
     update() {
@@ -59,9 +61,9 @@ export default class Player extends Phaser.Sprite {
             this.body.acceleration.y = 500;
         } else {
             if(this.body.velocity.y > 20){
-                this.body.acceleration.y -= 30;
+                this.body.acceleration.y -= 50;
             } else if (this.body.velocity.y < -20) {
-                this.body.acceleration.y += 30;
+                this.body.acceleration.y += 50;
             } else {    
                 this.body.velocity.y = 0;
                 this.body.acceleration.y = 0;
@@ -90,10 +92,8 @@ export default class Player extends Phaser.Sprite {
     } //end update 
 
     shoot() {
-
         // console.log(this.game.physics.arcade);
-
-        // this.shotSound.play("",0,0.5);
+        // this.shotSound.play("",0,0.02);
 
         let bullet = this.bullets.getFirstExists(false);
 
@@ -106,15 +106,20 @@ export default class Player extends Phaser.Sprite {
                 y: _yOffset = this.y - 3,
                 health: 3,
                 asset: 'bullet',
-                tint: 0x04c112
+                tint: 0xccffcc
             });
             this.bullets.add(bullet);
         }
         else {
             bullet.reset(this.x,  _yOffset = this.y - 3, 3);
         }
-        bullet.body.rotation = this.game.physics.arcade.moveToPointer(bullet, this.bulletSpeed, this.game.input.activePointer, 500);
-        // bullet.body.velocity.x = this.bulletSpeed * -1;
+
+        if(this.loadout < 6){ //RN loadout is bullet firerate
+           bullet.body.velocity.x = this.bulletSpeed * -1;
+        } else {
+            bullet.body.rotation = this.game.physics.arcade.moveToPointer(bullet, -this.bulletSpeed, this.game.input.activePointer);
+        }
+
     } // END shoot
 
     damage(amount) {

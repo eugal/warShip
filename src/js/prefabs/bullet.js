@@ -1,6 +1,6 @@
 export default class Bullet extends Phaser.Sprite {
 
-    constructor({ game, x, y, asset, health, tint = 0xff0000 }) {
+    constructor({ game, x, y, asset, health, tint = 0xff4d4d }) {
         super(game, x, y, asset);
 
         this.anchor.setTo(0.5);
