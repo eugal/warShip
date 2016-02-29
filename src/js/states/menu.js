@@ -22,8 +22,6 @@ export default class Menu extends Phaser.State {
         // this.music.loopFull();
         $('.title h1').text("warShip");
         $('.intro').show();
-
-        $('#menu').show();
         $('#btn1 h1').text("ship one");
         $('#btn1').click(function(){
             localStorage.setItem("loadout", 10); 
@@ -36,6 +34,7 @@ export default class Menu extends Phaser.State {
             _this.state.start('Play');
             $(_ThreeUI).remove(); 
         });
+         $('#menu').show();
 
         window.addEventListener('resize', this.handleResize.bind(this), false);
 

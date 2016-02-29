@@ -20,8 +20,7 @@ export default class Hud extends Phaser.Group {
         //DOM UI:
         $("#menu").hide();
         $("#hud").show();
-        // $('#circle').show():
-        $('#circle').circleProgress({
+        $("#circle").circleProgress({
             value: 100,
             size: 50,
             fill: {
