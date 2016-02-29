@@ -18,12 +18,10 @@ export default class Player extends Phaser.Sprite {
         this.game.physics.arcade.enable(this);
         this.enableBody = true;
 
-        this.body.maxVelocity.setTo(250, 250);
+        this.body.maxVelocity.setTo(400, 400);
 
         this.body.collideWorldBounds = true;
-        this.body.allowGravity = true;
-
-        this.lastPos = {x, y};
+        // this.body.allowGravity = true;
 
         this.diff = {
             x: 0,
@@ -32,7 +30,7 @@ export default class Player extends Phaser.Sprite {
 
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
-        this.bulletSpeed = -400;
+        this.bulletSpeed = -500;
 
         this.loadout = localStorage.getItem("loadout");
 
@@ -43,27 +41,50 @@ export default class Player extends Phaser.Sprite {
         //         this.frame = 1;
         //     }
         // });
+        //reset
+
 
     }
 
-    update() {
+    update() { //this controller is crazy
 
         let isUp = this.game.input.keyboard.isDown(Phaser.Keyboard.UP) || this.game.input.keyboard.isDown(Phaser.KeyCode.W);
         let isDown = this.game.input.keyboard.isDown(Phaser.Keyboard.DOWN) || this.game.input.keyboard.isDown(Phaser.KeyCode.S);
         let isLeft = this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || this.game.input.keyboard.isDown(Phaser.KeyCode.A);
         let isRight = this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || this.game.input.keyboard.isDown(Phaser.KeyCode.D);
 
+        let acceleration = 500;
 
+        let BreakSpeed = 50;
+        let Breaks = 30;
+
+ if(this.loadout < 6){ //RN loadout is bullet firerate
         if(isUp){
-            this.body.acceleration.y = -500;
+            this.body.velocity.y = -400;
+        } else if (isDown){
+            this.body.velocity.y = 400;
+        } else {
+            this.body.velocity.y = 0;
+        }
+        if(isRight){
+            this.body.velocity.x = 500;
+        } else if (isLeft){
+            this.body.velocity.x = -500;
+        } else {
+            this.body.velocity.x = 0;
+        }    
+    } else { 
+    //other loadout
+        if(isUp){
+            this.body.acceleration.y = -acceleration;
         } else if (isDown){
             // this.game.physics.arcade.accelerationFromRotation(this.rotation, -200, this.body.acceleration);
-            this.body.acceleration.y = 500;
+            this.body.acceleration.y = acceleration;
         } else {
-            if(this.body.velocity.y > 20){
-                this.body.acceleration.y -= 50;
-            } else if (this.body.velocity.y < -20) {
-                this.body.acceleration.y += 50;
+            if(this.body.velocity.y > Breaks){
+                this.body.acceleration.y -= BreakSpeed;
+            } else if (this.body.velocity.y < -Breaks) {
+                this.body.acceleration.y += BreakSpeed;
             } else {    
                 this.body.velocity.y = 0;
                 this.body.acceleration.y = 0;
@@ -71,20 +92,25 @@ export default class Player extends Phaser.Sprite {
         }
 
         if(isRight){
-            this.body.acceleration.x = 500;
+            this.body.acceleration.x = acceleration;
         } else if (isLeft){
-             this.body.acceleration.x = -500;
+             this.body.acceleration.x = -acceleration;
         } else {
-            if(this.body.velocity.x > 20){
-                this.body.acceleration.x -= 30;
-            } else if (this.body.velocity.x < -20) {
-                this.body.acceleration.x += 30;
+            if(this.body.velocity.x > Breaks){
+                this.body.acceleration.x -= BreakSpeed;
+            } else if (this.body.velocity.x < -Breaks) {
+                this.body.acceleration.x += BreakSpeed;
 
             } else {    
                 this.body.velocity.x = 0;
                 this.body.acceleration.x = 0;
             }
         }
+
+        }
+
+
+
 
         // console.log( this.body.acceleration.x);
         // console.log(this.body.velocity);

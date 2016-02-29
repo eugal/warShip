@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <title>shipWar</title>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Orbitron" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
     <style>
+
+    body{
+        overflow:hidden;
+        background-color: black;
+    }
 
     .threeClass{
     	position: absolute;
@@ -13,45 +20,124 @@
     	pointer-events: none
     }
 
-    .bgClass{
+    .title{
         position: absolute;
-        top: 0;
+        width: 500px;
+        top: 10%;
+        left: 50%;
+        margin-left: -250px;
+        z-index: 5;  
+        pointer-events: none  
+    }
+
+    .title h1{
+        font-family: 'Nunito';
+        font-size: 40px;
+        font-style: normal;
+        font-variant: normal;
+        color: white;
+        text-align: center;
+    }
+
+    .intro{
+        position: absolute;
+        width: 500px;
+        top: 32%;
+        left: 50%;
+        margin-left: -250px;
+        z-index: 5;
         pointer-events: none;
-        z-index: -5;
+    }
+
+    .intro h1{
+
+        font-family: 'Nunito';
+        font-size: 14px;
+        font-style: normal;
+        font-variant: normal;
+        color: white;
+        text-align: center;
+    }
+
+    .highScore{
+        position:absolute; 
+        bottom: 40px;
+        left:   33%;
     }
 
     .m_window{
         position: absolute;
-        top: 0;
-        left: 2%;
-        /*pointer-events: none*/
+        width: 500px;       
+        top: 50%;
+        left: 50%;
+        margin-left: -250px;
         z-index: 5;
     }
 
-    #btnOne{
-        display: none; 
-        background-color: blue;
+    .btnOne{
+        border: 1px solid #f7911c;
+        width: 160px;
+        height: 25px;
+        margin: 20px 0 20px 33%;
+ /*       display: none; */
+        background-color: black;
     }
 
-    #btnOne:hover {
-        background-color: green;
+    .btnOne:hover {
+        border: 1px solid #3490b1;
+  /*    width: 100px;
+        height: 100px;*/
     }
 
-    .fullscreenBG{
+    .btnOne h1{
+        font-family: 'Nunito';
+        font-size: 18px;
+        font-style: normal;
+        /*position: absolute;*/
+        margin-top: 1px;
+        text-align: center;
+        width: 160px;
+        font-weight: 300;
+        color:  white;
+    }
+
+
+    #menu{
         position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: grey;
-        z-index: -5;
+        left: 50%;
+        margin-left: -512px;
+        width: 1024px;
+        height: 576px;
+        transform: scale(1.68);
+        transform-origin: 50% 0%;
+        /*pointer-events: none;*/
     }
+
+    #menu h1{
+        font-family: 'Nunito';
+        font-style: normal;
+        font-variant: normal;
+        color: white;
+        text-align: center;
+    }
+
 
     #hud{
         display: none;
+        position: absolute;
+        left: 50%;
+        margin-left: -512px;
+        width: 1024px;
+        height: 576px;
+        transform: scale(1.68);
+        transform-origin: 50% 0%;
+        pointer-events: none;
     }
 
     #hud h1{
-        font-family: 'Open Sans';
-        font-size: 24px;
+        /*font-family: 'Open Sans';*/
+        font-family: 'Nunito';
+        font-size: 12px;
         font-style: normal;
         font-variant: normal;
         font-weight: 700;
@@ -59,33 +145,49 @@
         color: white;
     }
 
-    .hb_wrapper{
-        position: absolute;
-        left: 50%;
-        margin-left: -400px;
-        width: 800px;
-        height: 10px;
-        border-style: solid;
-        border-color: yellow;
-    }
-
-    .healthbar{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: red;
-        z-index: 5;
-    }
-
     .scoreText{
         position: absolute;
-        top: 5px;
-        left: 1px;
+        top: 0;
+        margin-top: 50px;
+        margin-left: 10px;
     }
     .timeText{
         position: absolute;
-        top: 30px;
-        left: 1px;
+        top: 0;
+        margin-top: 20px;
+        margin-left: 10px;
+    }
+
+    #circle{
+        position: absolute;
+        top: 5px;
+        z-index: 1;
+        left: 50%;
+        margin-left: -50px;
+    }
+
+    #circle h1{ 
+        position: absolute;
+        width: 50px;
+        margin-top: -43px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    #PilotPortrait{
+        position: absolute;   
+        bottom: 0;
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+
+    .pilotPic{
+        opacity: 0.8;
+        background-image:url('img/pilot.png');
+        width:  50px;
+        height: 50px;
+        background-color: orange;
+        background-size: contain;    
     }
 
 
@@ -101,6 +203,8 @@
     <script src="bower_components/phaser/build/phaser.js"></script>
     <!-- endbuild -->    
 
+    <script src="bower_components/jquery-circle-progress/dist/circle-progress.js"></script>
+
     <!--build:lib(./) js/three.js-->
     <script src="bower_components/threejs/build/three.js"></script>
     <script src="bower_components/threejs/examples/js/renderers/Projector.js"></script>
@@ -114,18 +218,29 @@
 
     <!-- <script src="js/homeScene.js"></script> -->
 
-    <div class="m_window">
-      <div id="btnOne"><h1>Start</h1></div>
+    <div id="menu">   
+        <div class="title"><h1>warShip</h1></div>
+        <div class="intro"><h1>WASD to move and click to shoot</h1></div>
+        <div class="m_window">
+          <div class="btnOne" id="btn1"><h1>Start</h1></div>
+          <div class="btnOne" id="btn2"><h1>Second</h1></div>
+        </div>
+         <div class="highScore"><h1>High Score:</h1></div>
     </div>
 
     <div id="hud">
-        <div class="hb_wrapper">
-            <div class="healthbar"></div>
+        <div id="circle"><h1>100<h1></div>
+
+        <div id="PilotPortrait">
+            <div class="pilotPic"></div>
         </div>
+
+
         <div class="scoreText"><h1>Score: 0</h1></div>
         <div class="timeText"><h1>Time: 0</h1></div>
     </div>    
-    <div class="fullscreenBG"></div>
+<!--     <div class="fullscreenBG"></div> -->
+
 
 </body>
 </html>

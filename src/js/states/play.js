@@ -15,7 +15,7 @@ export default class Play extends Phaser.State {
 
         var gData = this.cache.getJSON('gameData');
 
-        this.farback = this.add.tileSprite(0, 0, 800, 600, 'farback'); //the map bg
+        this.farback = this.add.tileSprite(0, 0, 1024, 576, 'farback'); //the map bg
         this.totalTime = 0;
         this.game.time.slowMotion = 1;
 
@@ -296,6 +296,9 @@ export default class Play extends Phaser.State {
         this.game.time.slowMotion = 3;
         this.overlay.visible = true;
         this.game.world.bringToTop(this.overlay);
+        //Reset HP
+        $('#circle').circleProgress({value: 0});
+        $('#circle h1').text(' ');
         // $(_ThreeUI).remove(); 
         let timer = this.game.time.create(this.game, true);
         timer.add(3000, () => {

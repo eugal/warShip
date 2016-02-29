@@ -4,43 +4,41 @@ export default class Hud extends Phaser.Group {
         this.game = game;
         this.player = player;
         this.totalTime = 0;
-        // this.bg = new Phaser.Image(this.game, 0, 0, 'hudBg');
         this.width = 800;
-        // this.healthbar = new Phaser.Sprite(this.game, 2, 2, 'healthbar');
-        // this.healthbar.scale.setTo(0.995, 11);
-
         this.score = 0;
-        // this.scoreLabel = 'Score: ';
-        // this.scoreText = new Phaser.Text(this.game, 20, 14, this.scoreLabel + this.score, {
-        //     font: '13px Verdana',
-        //     fill: 'white',
-        //     align: 'center'
-
-        // });
-
         this.timer = 0;
 
         this.highScore = localStorage.getItem("high-score");
 
-        // this.add(this.bg);
-        // this.add(this.healthbar);
-        // this.add(this.scoreText);
-
         this.maxHealth = this.player.health;
 
+        this.lastHp = (this.player.health / this.maxHealth) * 100;
+
         this.originalWidth = $(window).width();
-        // window.addEventListener('resize', this.handleResize.bind(this), false); //TODO: Scale DOM nicely
+        window.addEventListener('resize', this.handleResize.bind(this), false);
 
         //DOM UI:
-        $("#btnOne").hide();
+        $("#menu").hide();
         $("#hud").show();
+        // $('#circle').show():
+        $('#circle').circleProgress({
+            value: 100,
+            size: 50,
+            fill: {
+                gradient: ["red", "orange"]}
+        });
+
+        this.handleResize();
     }
 
     handleResize() {
+        let h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
         let newWidth = $(window).width();
-        let scale = (newWidth/this.originalWidth);
-         $("#hud").css('-webkit-transform', 'scale(' + scale + ')');
-        console.log($( window ).width());
+        let minWidth = 1024;
+        let minHeigth = 576;
+        // let scale = (newWidth/this.originalWidth);
+        let scale = (h/minHeigth);
+         $("#hud").css('transform', 'scale(' + scale + ')');
     }
 
     update(){
@@ -52,11 +50,29 @@ export default class Hud extends Phaser.Group {
     }
 
     updateHealth() {
-        // this.healthbar.crop(new Phaser.Rectangle(0, 0, (this.player.health / this.player.maxHealth) * this.width, 10));
-        // this.healthbar.updateCrop();
-        let newHealth = (this.player.health / this.maxHealth) * 100;
-        // console.log(Math.round(newHealth) + '%');
-        $('.healthbar').width(Math.round(newHealth)+ '%')
+        // let lastHealth = (this.player.health / this.maxHealth) * 100;
+        let newHealth = (Math.round((this.player.health / this.maxHealth) * 100));
+        // this.timer = Math.round(newHealth);
+        // $('#circle h1').empty();
+        $('#circle h1').text(String(newHealth));
+
+        // let newDiv = document.createElement("h1"); 
+        // let newContent = document.createTextNode(newHealth); 
+        // newDiv.appendChild(newContent); //add the text node to the newly created div. 
+        // document.body.insertBefore(newDiv, document.getElementById("div1")); 
+
+
+        console.log(Math.round(newHealth) * .01);
+        // $('.healthbar').width(Math.round(newHealth)+ '%')
+        $('#circle').circleProgress({
+            value: newHealth * .01,
+            animationStartValue: Math.round(this.lastHp) * .01,
+            // size: 80,
+            // fill: {
+            //     gradient: ["red", "orange"]}
+        });
+        this.lastHp= (this.player.health / this.maxHealth) * 100;
+
     }
 
     updateScore(amount) {
