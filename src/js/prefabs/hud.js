@@ -1,6 +1,7 @@
 export default class Hud extends Phaser.Group {
     constructor({ game, player }) {
         super(game);
+
         this.game = game;
         this.player = player;
         this.totalTime = 0;
@@ -16,8 +17,9 @@ export default class Hud extends Phaser.Group {
 
         this.originalWidth = $(window).width();
         window.addEventListener('resize', this.handleResize.bind(this), false);
-
+        var _hud = this;
         //DOM UI:
+       
         $("#menu").hide();
         $("#hud").show();
         $("#circle").circleProgress({
@@ -40,7 +42,7 @@ export default class Hud extends Phaser.Group {
          $("#hud").css('transform', 'scale(' + scale + ')');
     }
 
-    update(){
+    update() {
         this.totalTime += this.game.time.physicsElapsed;
         this.timer = Math.round(this.totalTime);
         // this.timeText.text = this.timeLabel + this.timer;
@@ -61,7 +63,7 @@ export default class Hud extends Phaser.Group {
         // document.body.insertBefore(newDiv, document.getElementById("div1")); 
 
 
-        console.log(Math.round(newHealth) * .01);
+        // console.log(Math.round(newHealth) * .01);
         // $('.healthbar').width(Math.round(newHealth)+ '%')
         $('#circle').circleProgress({
             value: newHealth * .01,
@@ -69,7 +71,7 @@ export default class Hud extends Phaser.Group {
             // size: 80,
             // fill: {
             //     gradient: ["red", "orange"]}
-        });
+            });
         this.lastHp= (this.player.health / this.maxHealth) * 100;
 
     }
@@ -78,11 +80,15 @@ export default class Hud extends Phaser.Group {
         this.score += amount;
         $(".scoreText h1").text("Score: " + (this.score * 10))
         // this.scoreText.text = this.scoreLabel + (this.score * 10);
-        
-        if(this.highScore < this.score){
-            localStorage.setItem("high-score", this.score);
-        }
+
+    if(this.highScore < this.score){
+        localStorage.setItem("high-score", this.score);
+    }
 
     }
 
-};
+    returnScore(){
+        return this.score;
+    }
+
+    };

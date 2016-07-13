@@ -2,15 +2,76 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>shipWar</title>
+    <title>warShip</title>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Orbitron" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Nunito" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Droid+Sans+Mono" />
+<!-- 
+    <script src="https://use.typekit.net/vsb3cgm.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script> -->
+
+
     <style>
+    /*RESET*/
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed, 
+    figure, figcaption, footer, header, hgroup, 
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    }
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure, 
+    footer, header, hgroup, menu, nav, section {
+    display: block;
+    }
+    body {
+    line-height: 1;
+    }
+    ol, ul {
+    list-style: none;
+    }
+    blockquote, q {
+    quotes: none;
+    }
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+    content: '';
+    content: none;
+    }
+    table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    }
+/*RESET*/
 
     body{
-        overflow:hidden;
         background-color: black;
+        overflow:hidden;
+/*        background:url(
+        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAJ79+79zwjjgzjOzs6MYAEYB8RmROaABADs6w87ZdDTdQAAAABJRU5ErkJggg==
+        ) repeat;*/
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none;   /* Chrome/Safari/Opera */
+        -khtml-user-select: none;    /* Konqueror */
+        -moz-user-select: none;      /* Firefox */
+        -ms-user-select: none;       /* Internet Explorer/Edge */
+        user-select: none;           /* Non-prefixed version, currently not supported by any browser */
+
     }
 
     .threeClass{
@@ -18,87 +79,6 @@
     	top: 0;
         left: -20%;
     	pointer-events: none
-    }
-
-    .title{
-        position: absolute;
-        width: 500px;
-        top: 10%;
-        left: 50%;
-        margin-left: -250px;
-        z-index: 5;  
-        pointer-events: none  
-    }
-
-    .title h1{
-        font-family: 'Nunito';
-        font-size: 40px;
-        font-style: normal;
-        font-variant: normal;
-        color: white;
-        text-align: center;
-    }
-
-    .intro{
-        position: absolute;
-        width: 500px;
-        top: 32%;
-        left: 50%;
-        margin-left: -250px;
-        z-index: 5;
-        pointer-events: none;
-    }
-
-    .intro h1{
-
-        font-family: 'Nunito';
-        font-size: 14px;
-        font-style: normal;
-        font-variant: normal;
-        color: white;
-        text-align: center;
-    }
-
-    .highScore{
-        position:absolute; 
-        bottom: 40px;
-        left:   33%;
-    }
-
-    .m_window{
-        position: absolute;
-        width: 500px;       
-        top: 50%;
-        left: 50%;
-        margin-left: -250px;
-        z-index: 5;
-    }
-
-    .btnOne{
-        border: 1px solid #f7911c;
-        width: 160px;
-        height: 25px;
-        margin: 20px 0 20px 33%;
- /*       display: none; */
-        background-color: black;
-    }
-
-    .btnOne:hover {
-        border: 1px solid #3490b1;
-  /*    width: 100px;
-        height: 100px;*/
-    }
-
-    .btnOne h1{
-        font-family: 'Nunito';
-        font-size: 18px;
-        font-style: normal;
-        /*position: absolute;*/
-        margin-top: 1px;
-        text-align: center;
-        width: 160px;
-        font-weight: 300;
-        color:  white;
     }
 
 
@@ -112,14 +92,107 @@
         transform: scale(1.68);
         transform-origin: 50% 0%;
         /*pointer-events: none;*/
+        perspective: 1000px;
     }
 
-    #menu h1{
-        font-family: 'Nunito';
+/*    #menu h1{
+        font-family: "Droid Sans Mono";
         font-style: normal;
         font-variant: normal;
-        color: white;
         text-align: center;
+
+    }*/
+
+    .title{
+        position: absolute;
+        width: 500px;
+        top: 10%;
+        left: 50%;
+        /* margin-left: -250px; */
+        z-index: 5;
+        /* pointer-events: none; */
+        /*transform: rotateY(-25deg);*/
+    }
+
+    .title h1{
+        font-family: "Droid Sans Mono";
+        font-size: 40px;
+        font-style: normal;
+        font-variant: normal;
+        color: #c39e6d;
+        text-align: center;
+        /*text-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 1px #fff, 0 0 0px #fff, 0 0 1px #c39e6d, 0 0 0px #c39e6d, 0 0 1px #c39e6d, 0 0 15px #c39e6d;*/
+    }
+
+    .intro{
+        position: absolute;
+        width: 500px;
+        top: 32%;
+        left: 50%;
+        /*margin-left: -250px;*/
+        z-index: 5;
+        pointer-events: none;
+    }
+
+    .intro h1{
+
+        font-family: 'Nunito';
+        font-size: 14px;
+        font-style: normal;
+        font-variant: normal;
+        color: #7cdcf0;
+        text-align: center;
+    }
+
+    .highScore{
+        position:absolute; 
+        bottom: 40px;
+        left:   33%;
+    }
+
+    .m_window{
+        position: absolute;
+        bottom: 0;
+/*      position: absolute;
+        width: 500px;       
+        top: 50%;
+        left: 50%;
+        margin-left: -250px;
+        z-index: 5;*/
+    }
+
+    .btnOne{
+        font-family: "Droid Sans Mono";
+        font-size: 12px;
+        position: relative;
+        color: black;
+        text-align: center;
+        border: 1px solid black;
+        width: 100px;
+        margin-bottom: 5px;
+        padding: 5px 10px;
+        background-color: rgba(255,255,255,1);
+    }
+
+    .btnOne::before{
+        box-shadow: inset 0 0 10px #f7911c;
+    }
+
+    .btnOne:hover {
+        border: 2px solid #3490b1;
+        box-shadow: 0px 0px 12px #3490b1;
+    }
+
+    .btnOne h1{
+        font-family: "Droid Sans Mono";
+        font-size: 14px;
+        font-style: normal;
+        /* position: absolute; */
+        /* margin-top: 1px; */
+        text-align: center;
+        /* width: 160px; */
+        font-weight: 300;
+        color: black;
     }
 
 
@@ -180,6 +253,7 @@
         bottom: 0;
         margin-bottom: 10px;
         margin-left: 10px;
+        pointer-events: all;
     }
 
     .pilotPic{
@@ -189,6 +263,74 @@
         height: 50px;
         background-color: orange;
         background-size: contain;    
+    }
+
+    #pilotInfo{
+        position: absolute;
+        left: 100px;
+        transform: rotateY(25deg);
+    }
+
+    .pCard{
+        width: 300px;
+        height: 70px;
+        background-color: grey;
+    }
+/*CLICKER CSS*/
+    .panel{
+      color: white;
+      background-color: black;
+      width: 200px;
+    }
+
+    .build{
+        font-family: "Droid Sans Mono";
+        font-size: 12px;
+        position: relative;
+        color: black;
+        text-align: center;
+        border: 1px solid black;
+        width: 100px; 
+        margin-bottom: 5px;
+        padding: 5px 10px;
+        background-color: rgba(255,255,255,1);
+    }
+
+    .build:hover{
+        border: 1px solid black;
+        cursor: pointer;
+        background-color: #c39e6d;
+    }
+
+    .build:active{
+        border: 1px solid black;
+        cursor: pointer;
+        background-color: #7cdcf0;
+    }
+
+/*
+    .build p{
+        font-family: 'Open Sans';
+        color: black;
+        pointer-events: none;
+    }*/
+
+    #clicker{   
+        position: absolute;
+        left: 50%;
+        margin-left: -100px;
+    }
+
+    .hideBtn{
+        display: none;
+    }
+
+    #btn2{
+        display: none;
+        position: absolute;
+        top: 50%;
+        margin-left: -130px;
+        left: 50%;
     }
 
 
@@ -222,11 +364,22 @@
     <!-- <script src="js/homeScene.js"></script> -->
 
     <div id="menu">   
+        <div id="pilotInfo" style='display:none'>
+            <div class="pCard">
+                <div class="pPic"></div>
+                <div class="pId"><h1>028</h1></div>
+                <div id="pClass"><h1>here</h1></div>
+                <div id="pScore"><h1>000</h1></div>
+            </div>
+        </div>
+
+        <div id="clicker"></div>
+
         <div class="title"><h1>warShip</h1></div>
         <div class="intro"><h1>WASD to move and click to shoot</h1></div>
+        <div class="btnOne" id="btn2"><h1>Second</h1></div>
         <div class="m_window">
           <div class="btnOne" id="btn1"><h1>Start</h1></div>
-          <div class="btnOne" id="btn2"><h1>Second</h1></div>
         </div>
          <div class="highScore"><h1>High Score:</h1></div>
     </div>

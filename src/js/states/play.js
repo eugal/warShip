@@ -1,6 +1,7 @@
 import Player from '../prefabs/player';
 import Enemy from '../prefabs/enemy';
 import HUD from '../prefabs/hud';
+// import pilotManager from '../prefabs/pilotManager';
 
 // import GConstants from '../prefabs/gConstants';
 
@@ -13,7 +14,9 @@ export default class Play extends Phaser.State {
 
         // new Main();
 
-        var gData = this.cache.getJSON('gameData');
+        // var gData = this.cache.getJSON('gameData'); //should come from pilot
+        // this.pilotData = jQuery.parseJSON(localStorage.getItem('pilotData'));
+
 
         this.farback = this.add.tileSprite(0, 0, 1024, 576, 'farback'); //the map bg
         this.totalTime = 0;
@@ -29,7 +32,8 @@ export default class Play extends Phaser.State {
             game: this.game,
             x: this.game.world.centerX,
             y: 0.92 * this.game.world.height,
-            health: gData[0].hp,
+            health: 20,
+            // health: this.pilotData.pilot[2].hp,
             asset: 'newfigther',
             frame: 1
         });
@@ -62,8 +66,6 @@ export default class Play extends Phaser.State {
 
         let loadout = localStorage.getItem("loadout");
 
-
-
         this.playerShootTime = 0;
         this.playerShootInterval = loadout * .01;
         this.playerShooting = false;
@@ -90,10 +92,17 @@ export default class Play extends Phaser.State {
         // this.gameOverSound = this.add.sound('gameOver');
         // this.music.loopFull();
 
+        let pilotPic = $(".pilotPic");
 
+        pilotPic.click(this.retreat.bind(this));
 
 
     } //END CREATE
+
+    retreat() {
+        this.game.state.start('Over');
+        this.player.damage(1000);
+    }
 
     update() {
         //TODO: figure out enemy spawning system. something better than enemy2
@@ -255,7 +264,9 @@ export default class Play extends Phaser.State {
 
     hitEnemy(bullet, enemy) {
         // this.bulletHitSound.play("",0,0.5);
+        console.log(bullet.health);
         enemy.damage(bullet.health);
+        // enemy2.damage(bullet.health);
         this.hitEffect(enemy, bullet.tint);
         if (!enemy.alive) {
             // this.enemyExplosionSound.play("",0,0.5);
@@ -307,7 +318,27 @@ export default class Play extends Phaser.State {
             this.game.state.start('Over');
         });
         timer.start();
+
+        // this.updatePilot();
+
     }
+
+    // updatePilot(){
+    //     console.log(this.hud.score);
+
+    //     // var pilotData = jQuery.parseJSON(localStorage.getItem('pilotData'));
+
+    //     let totalScore = this.pilotData.pilot[2].highScore;
+    //     console.log(totalScore);
+    //     this.pilotData.pilot[2].highScore = (totalScore + this.hud.score);
+        
+    //     console.log(this.pilotData.pilot[2].highScore)
+
+    //     var updated = JSON.stringify(this.pilotData);
+    //     localStorage.setItem("pilotData", updated);
+
+
+    // }
 
 }
 //3dbg TODO
@@ -324,7 +355,7 @@ export default class Play extends Phaser.State {
 //         this.renderer;
 //         this.mouseX;
 //         this.mouseY;
-//         this.particle1;
+//         this.particle;
 
 //         this.init();
 
@@ -333,39 +364,28 @@ export default class Play extends Phaser.State {
 
 //     init() {
 
-//         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 3000 );
+//         this.camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 5000 );
 //         this.camera.position.z = 1000;
 
-//         let PI2 = Math.PI * 2;
-//         let program = function ( context ) {
-//           context.beginPath();
-//           context.arc( 0, 0, 0.5, 0, this.PI2, true );
-//           context.fill();
-//         };
-        
-//         this.group = new THREE.Group();
-//         this.scene.add(this.group);
+//         this.scene = new THREE.Scene();
+
+//         var material = new THREE.SpriteMaterial( {
+//             map: new THREE.CanvasTexture( generateSprite() ),
+//             blending: THREE.AdditiveBlending
+//         } );
+
 
 
 //         for ( var i = 0; i < 1000; i++ ) {
 
-//           let material = new THREE.SpriteCanvasMaterial( {
-//             color: Math.random() * 0x808008 + 0x808080,
-//             // color: 0xffffff,
-//             program: program
-//           } );
+//              this.particle = new THREE.Sprite( material );
 
-//           console.log(material);
+//              initParticle( particle, i * 10 );
 
-//           this.particle1 = new THREE.Sprite( material );
-//           this.particle1.position.x = Math.random() * 2000 - 1000;
-//           this.particle1.position.y = Math.random() * 2000 - 1000;
-//           this.particle1.position.z = Math.random() * 2000 - 1000;
-//           this.particle1.scale.x = this.particle1.scale.y = Math.random() * 20 + 10;
-//           this.group.add( this.particle1 );
-//           console.log(this.particle1);
-//         }
-        
+//              this.scene.add( particle );
+//             }
+
+
 
 //         this.renderer = new THREE.CanvasRenderer();
 //         this.renderer.setPixelRatio( window.devicePixelRatio );
@@ -398,7 +418,7 @@ export default class Play extends Phaser.State {
 //         // this.elements.forEach(function(element) {
 //         //     element.render();
 //         // });
-//         console.log('render');
+//         // console.log('render');
 //         this.renderer.render(this.scene, this.camera);
 //         requestAnimationFrame(this.render.bind(this));
 
@@ -411,4 +431,6 @@ export default class Play extends Phaser.State {
 //         console.log(this.group);
 
 //     }
-//}
+// }
+
+

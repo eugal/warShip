@@ -33,7 +33,12 @@ export default class Player extends Phaser.Sprite {
         this.bulletSpeed = -500;
 
         this.loadout = localStorage.getItem("loadout");
+        this.bulletHealth = localStorage.getItem("bulletHealth");
 
+        if(!this.bulletHealth){
+           this.bulletHealth = 3;
+        }
+        // console.log(this.bulletHealth);
         // this.shotSound = this.game.add.sound('playerShot');
 
         // this.game.input.onUp.add(() => {
@@ -58,7 +63,7 @@ export default class Player extends Phaser.Sprite {
         let BreakSpeed = 50;
         let Breaks = 30;
 
- if(this.loadout < 6){ //RN loadout is bullet firerate
+ // if(this.loadout < 6){ //RN loadout is bullet firerate
         if(isUp){
             this.body.velocity.y = -400;
         } else if (isDown){
@@ -73,41 +78,41 @@ export default class Player extends Phaser.Sprite {
         } else {
             this.body.velocity.x = 0;
         }    
-    } else { 
-    //other loadout
-        if(isUp){
-            this.body.acceleration.y = -acceleration;
-        } else if (isDown){
-            // this.game.physics.arcade.accelerationFromRotation(this.rotation, -200, this.body.acceleration);
-            this.body.acceleration.y = acceleration;
-        } else {
-            if(this.body.velocity.y > Breaks){
-                this.body.acceleration.y -= BreakSpeed;
-            } else if (this.body.velocity.y < -Breaks) {
-                this.body.acceleration.y += BreakSpeed;
-            } else {    
-                this.body.velocity.y = 0;
-                this.body.acceleration.y = 0;
-            }
-        }
+ //    } else { 
+ //    //other loadout
+        // if(isUp){
+        //     this.body.acceleration.y = -acceleration;
+        // } else if (isDown){
+        //     // this.game.physics.arcade.accelerationFromRotation(this.rotation, -200, this.body.acceleration);
+        //     this.body.acceleration.y = acceleration;
+        // } else {
+        //     if(this.body.velocity.y > Breaks){
+        //         this.body.acceleration.y -= BreakSpeed;
+        //     } else if (this.body.velocity.y < -Breaks) {
+        //         this.body.acceleration.y += BreakSpeed;
+        //     } else {    
+        //         this.body.velocity.y = 0;
+        //         this.body.acceleration.y = 0;
+        //     }
+        // }
 
-        if(isRight){
-            this.body.acceleration.x = acceleration;
-        } else if (isLeft){
-             this.body.acceleration.x = -acceleration;
-        } else {
-            if(this.body.velocity.x > Breaks){
-                this.body.acceleration.x -= BreakSpeed;
-            } else if (this.body.velocity.x < -Breaks) {
-                this.body.acceleration.x += BreakSpeed;
+        // if(isRight){
+        //     this.body.acceleration.x = acceleration;
+        // } else if (isLeft){
+        //      this.body.acceleration.x = -acceleration;
+        // } else {
+        //     if(this.body.velocity.x > Breaks){
+        //         this.body.acceleration.x -= BreakSpeed;
+        //     } else if (this.body.velocity.x < -Breaks) {
+        //         this.body.acceleration.x += BreakSpeed;
 
-            } else {    
-                this.body.velocity.x = 0;
-                this.body.acceleration.x = 0;
-            }
-        }
+        //     } else {    
+        //         this.body.velocity.x = 0;
+        //         this.body.acceleration.x = 0;
+        //     }
+        // }
 
-        }
+        // }
 
 
 
@@ -118,9 +123,9 @@ export default class Player extends Phaser.Sprite {
     } //end update 
 
     shoot() {
-        // console.log(this.game.physics.arcade);
+        // console.log(this.bulletHealth);
         // this.shotSound.play("",0,0.02);
-
+        
         let bullet = this.bullets.getFirstExists(false);
 
         let _yOffset = this.y - 3; 
@@ -130,21 +135,21 @@ export default class Player extends Phaser.Sprite {
                 game: this.game,
                 x: this.x,
                 y: _yOffset = this.y - 3,
-                health: 3,
+                health: this.bulletHealth,
                 asset: 'bullet',
-                tint: 0xccffcc
+                tint: 0xccffff
             });
             this.bullets.add(bullet);
         }
         else {
-            bullet.reset(this.x,  _yOffset = this.y - 3, 3);
+            bullet.reset(this.x,  _yOffset = this.y - 3, this.bulletHealth); 
         }
 
-        if(this.loadout < 6){ //RN loadout is bullet firerate
+        // if(this.loadout < 6){ //RN loadout is bullet firerate
            bullet.body.velocity.x = this.bulletSpeed * -1;
-        } else {
-            bullet.body.rotation = this.game.physics.arcade.moveToPointer(bullet, -this.bulletSpeed, this.game.input.activePointer);
-        }
+        // } else {
+            // bullet.body.rotation = this.game.physics.arcade.moveToPointer(bullet, -this.bulletSpeed, this.game.input.activePointer);
+        // }
 
     } // END shoot
 

@@ -4,7 +4,7 @@ export default class Cube {
         var material = new THREE.MeshBasicMaterial({color: 0x000000});
 
         this.mesh = new THREE.Mesh( geometry, material );
-        this.wireframe = new THREE.WireframeHelper(this.mesh, 0x00ff00);
+        this.wireframe = new THREE.WireframeHelper(this.mesh, 0xc39e6d);
     }
 
     place(scene) {
@@ -13,6 +13,12 @@ export default class Cube {
     }
 
     render() {
+
+     // $('.title').click(function(){
+     //     newRotSpeed++;
+     //     console.log(newRotSpeed);
+     // })
+
         this.mesh.rotation.x += 0.01;
         this.mesh.rotation.y += 0.01;
     }

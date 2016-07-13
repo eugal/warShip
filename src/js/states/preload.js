@@ -22,7 +22,7 @@ export default class Preload extends Phaser.State {
         this.load.image('hudBg', 'img/hud-bg.png');
 
         this.load.audio('playMusic', ['audio/music/play.mp3']);
-        this.load.audio('menuMusic', ['audio/music/menu.mp3']);
+        this.load.audio('menuMusic', ['audio/music/Psyrius - Mercury.mp3']);
 
         this.load.audio('menuOver', ['audio/sound/menu-over.mp3']);
         this.load.audio('menuOut', ['audio/sound/menu-out.mp3']);

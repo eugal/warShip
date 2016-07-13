@@ -1,20 +1,25 @@
-import TextButton from '../extensions/textbutton';
 
+import pilotManager from '../prefabs/pilotManager';
+import Clicker from '../clicker';
 import Cube from '../cube'; 
 
 let _ThreeUI;
-let _this;
+let _menu;
 
 export default class Menu extends Phaser.State {
 
     create() {
+    //Load in Clicker
+      $('#clicker').load('img/clicker.html #clicker_wrapper', function () {
+        this.clicker = new Clicker();
+      });
 
-        let _this = this;
+        _menu = this;
 
         new Main(); // creates three js menu in menu state
 
         // this.music = this.game.add.audio('menuMusic');
-        this.farback = this.add.tileSprite(0, 0, 1024, 576, 'farback');
+        // this.farback = this.add.tileSprite(0, 0, 1024, 576, 'farback');
 
         this.score = localStorage.getItem("high-score");
         $('.highScore h1').text('High Score: ' + (this.score * 10));
@@ -22,22 +27,52 @@ export default class Menu extends Phaser.State {
         // this.music.loopFull();
         $('.title h1').text("warShip");
         $('.intro').show();
-        $('#btn1 h1').text("ship one");
+        $('#clicker').show();
+        $('#btn1 h1').text("Delete Clicker Data");
         $('#btn1').click(function(){
-            localStorage.setItem("loadout", 10); 
-            _this.state.start('Play');
+            // localStorage.setItem("loadout", 10); 
+            // _menu.state.start('Play');
+            // _menu.music.stop();
+                localStorage.removeItem("saveData");
+                location.reload();
             $(_ThreeUI).remove(); 
         });
-        $('#btn2 h1').text("ship two");
+        $('#btn2 h1').text("Shootem Up");
         $('#btn2').click(function(){
             localStorage.setItem("loadout", 5); 
-            _this.state.start('Play');
+            _menu.state.start('Play');
+            // _menu.music.stop();
             $(_ThreeUI).remove(); 
         });
          $('#menu').show();
 
+        // $('#btn2').click(function(){
+            // QueueNotification = function(notification){
+            //     if(notification.id == NotificationType.None) {
+            //     return;
+            //     }
+            //         window.MessageQueue.enqueue(_.partial(ShowNotification, notification)); //oh fuck notification is bound to and is in scope
+            //     };
+        // }
+
         window.addEventListener('resize', this.handleResize.bind(this), false);
 
+        // this.pilots = new pilotManager();
+        // var pilotData = jQuery.parseJSON(localStorage.getItem('pilotData'));
+        // if(pilotData == undefined){
+        //    this.pilots.createPilot; 
+        // }
+
+
+        // pilot.relation.A2++;
+        // // var pilotLove = pilot.relation.A2 + 1;
+        // console.log(pilotData);
+        // var newPilot = JSON.stringify(pilot);
+        // localStorage.setItem("pilotData", null);
+        // $('#pilotInfo h1').text(pilotData.pilot[2].name);
+
+        // $('#pClass h1').text(pilotData.pilot[2].class);
+        // $('#pScore h1').text(pilotData.pilot[2].highScore * 10);
     }
 
     handleResize() {
@@ -46,8 +81,8 @@ export default class Menu extends Phaser.State {
         let minWidth = 1024;
         let minHeigth = 576;
         // let scale = (newWidth/this.originalWidth);
-        let scale = (h/minHeigth);
-         $("#menu").css('transform', 'scale(' + scale + ')');
+        // let scale = (h/minHeigth);
+        //  $("#menu").css('transform', 'scale(' + scale + ')');
     }
 
 }
@@ -68,6 +103,7 @@ export class Main {
         _ThreeUI = this.renderer.domElement;
 
         $(_ThreeUI).addClass("threeClass");
+
 
         this.addElement(new Cube());
         this.render();
